@@ -1,13 +1,12 @@
 import {
     DMChannel,
-    Message,
     StreamDispatcher,
     TextChannel,
     VoiceChannel,
     VoiceConnection,
 } from 'discord.js';
-import { Readable } from 'stream';
 import * as ytdl from 'ytdl-core';
+import DiscordConnection from '../client/client';
 
 interface QueueItem {
     voiceChannel: VoiceChannel;
@@ -24,7 +23,8 @@ export default class VoiceController {
 
     private queue: QueueItem[] = [];
 
-    private volume: number = 0.2;
+    private volume: number = 0.1;
+    private lastRelativeLoudness: number = -1;
     private playing: boolean = false;
     private dispatcher: StreamDispatcher = null;
     private voiceConnection: VoiceConnection = null;
@@ -35,6 +35,7 @@ export default class VoiceController {
         info: ytdl.videoInfo
     ) {
         this.queue.push({ voiceChannel, textChannel, info });
+        textChannel.send(`Added to queue: ${info.title}`);
         if (!this.playing) {
             this.next();
         }
@@ -46,6 +47,10 @@ export default class VoiceController {
         }
 
         if (this.queue.length === 0) {
+            this.playing = false;
+            DiscordConnection.client.user.setPresence({
+                activity: {},
+            });
             return;
         }
 
@@ -58,10 +63,24 @@ export default class VoiceController {
             this.voiceConnection = await song.voiceChannel.join();
         }
 
+        if (this.lastRelativeLoudness === -1) {
+            this.lastRelativeLoudness = parseFloat(song.info.relative_loudness);
+        } else {
+            this.volume *= this.lastRelativeLoudness / parseFloat(song.info.relative_loudness);
+            this.lastRelativeLoudness = parseFloat(song.info.relative_loudness);
+        }
+
+        this.playing = true;
         this.dispatcher = this.voiceConnection.play(ytdl(song.info.video_url));
         this.dispatcher.setVolume(this.volume);
 
-        song.textChannel.send(`Now playing ${song.info.title}`);
+        DiscordConnection.client.user.setPresence({
+            activity: {
+                name: `Playing ${song.info.title}`,
+                type: 'LISTENING',
+                url: song.info.video_url,
+            },
+        });
 
         this.dispatcher.on('finish', () => {
             this.next();

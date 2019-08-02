@@ -4,22 +4,22 @@ import MessageHandler from '../events/message';
 import logger from '../logger';
 
 export default class DiscordConnection {
-    private static client: Client;
+    private static _client: Client;
 
     public static init() {
-        this.client = new Client();
-        this.client.login(config.token);
+        this._client = new Client();
+        this._client.login(config.token);
 
-        this.client.on('ready', () => {
-            logger.info(`Logged in as ${this.client.user.tag}!`);
+        this._client.on('ready', () => {
+            logger.info(`Logged in as ${this._client.user.tag}!`);
         });
 
-        this.client.on('message', message => {
+        this._client.on('message', message => {
             MessageHandler.handler.parse(message);
         });
     }
 
-    public get client(): Client {
-        return this.client;
+    public static get client(): Client {
+        return this._client;
     }
 }

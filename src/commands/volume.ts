@@ -1,5 +1,4 @@
 import { Message } from 'discord.js';
-import * as ytdl from 'ytdl-core';
 import VoiceController from '../controllers/voice';
 import BaseCommand from './base-command';
 
@@ -21,6 +20,6 @@ export default class VolumeCommand extends BaseCommand {
             volume = 100;
         }
 
-        VoiceController.instance.setVolume(volume / 100.0);
+        VoiceController.instance.setVolume(volume / 100.0 / 2.0); // divide by 2 because the bot is really fucking loud
     }
 }
