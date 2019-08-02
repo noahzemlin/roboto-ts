@@ -1,0 +1,13 @@
+# Node folders
+node_modules/
+bin/
+
+# Docker volumes
+roboto/
+mongodb/
+
+# Prevent accidental changes to docker-compose.yml
+docker-compose.yml
+
+# Program specificc
+logs.txt*

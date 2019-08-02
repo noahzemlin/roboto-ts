@@ -1,0 +1,49 @@
+{
+  "name": "roboto",
+  "version": "0.1.0",
+  "description": "Domo arigato, Mr. Roboto",
+  "main": "main.ts",
+  "scripts": {
+    "build": "echo building... && npm run build:lint && npm run build:ts && echo done!",
+    "build:ts": "tsc",
+    "build:lint": "tslint \"src/**/*.ts\" -e \"**/*.d.ts\"",
+    "clean": "rm -rf bin/",
+    "start": "node bin/main.js",
+    "start:pretty": "node bin/main.js",
+    "start:dev": "npm run clean && nodemon -x 'npm run build && npm run start:pretty' --watch src/ -L -e ts",
+    "uninstall": "rm -rf node_modules/ && npm run clean",
+    "prettify": "find ./src/**/ -name \\*.tsx -o -name \\*.ts -o -name //*.css| xargs prettier --find-config-path --write",
+    "precommit": "lint-staged",
+    "test:unit": "jest --collectCoverage"
+  },
+  "author": "Noah Zemlin <noah.zemlin@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/bunyan": "^1.8.6",
+    "@types/jest": "^23.3.10",
+    "@types/koa": "^2.0.48",
+    "@types/mongoose": "^5.5.11",
+    "@types/node": "^12.0.1",
+    "@types/ws": "^6.0.1",
+    "jest": "^24.8.0",
+    "jest-junit": "^5.2.0",
+    "nodemon": "^1.19.0",
+    "prettier": "^1.17.1",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "^3.4.5"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "bunyan": "^1.8.12",
+    "discord.js": "github:discordjs/discord.js",
+    "ffmpeg-static": "^2.5.0",
+    "mongoose": "^5.6.7",
+    "node-opus": "^0.3.2",
+    "ws": "^7.1.1",
+    "ytdl-core": "^0.29.5"
+  }
+}
