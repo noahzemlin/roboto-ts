@@ -16,6 +16,4 @@ services:
       CHANNEL_FILTER: 'blacklist'
       WHITELIST_CHANNELS: ''
       BLACKLIST_CHANNELS: ''
-    command: npm run start:dev
-    volumes:
-      - '.:/opt/roboto:cached'
+    command: npm run start
