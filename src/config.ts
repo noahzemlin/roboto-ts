@@ -22,8 +22,12 @@ const config: IConfig = {
     },
     log_level: (process.env.LOG_LEVEL as bunyan.LogLevelString) || 'error',
     channel_filter: (process.env.CHANNEL_FILTER as 'whitelist' | 'blacklist') || 'whitelist',
-    whitelist_channels: process.env.WHITELIST_CHANNELS.split(',') || [],
-    blacklist_channels: process.env.BLACKLIST_CHANNELS.split(',') || [],
+    whitelist_channels: process.env.WHITELIST_CHANNELS
+        ? process.env.WHITELIST_CHANNELS.split(',') || []
+        : [],
+    blacklist_channels: process.env.BLACKLIST_CHANNELS
+        ? process.env.BLACKLIST_CHANNELS.split(',') || []
+        : [],
 };
 
 export default config;

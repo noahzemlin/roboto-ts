@@ -5,6 +5,7 @@ import HealthyCommand from './healthy';
 import HelpCommand from './help';
 import NextCommand from './next';
 import PlayCommand from './play';
+import VolumeCommand from './volume';
 
 export default class Commands {
     private static _instance: Commands = new Commands();
@@ -15,6 +16,7 @@ export default class Commands {
         this.commands.push(new HealthyCommand());
         this.commands.push(new PlayCommand());
         this.commands.push(new NextCommand());
+        this.commands.push(new VolumeCommand());
     }
 
     public static get instance(): Commands {

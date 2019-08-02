@@ -24,7 +24,7 @@ export default class VoiceController {
 
     private queue: QueueItem[] = [];
 
-    private volume: number = 0.5;
+    private volume: number = 0.2;
     private playing: boolean = false;
     private dispatcher: StreamDispatcher = null;
     private voiceConnection: VoiceConnection = null;
@@ -51,8 +51,10 @@ export default class VoiceController {
 
         const song: QueueItem = this.queue.shift();
 
-        if (this.voiceConnection.channel.id !== song.voiceChannel.id) {
+        if (this.voiceConnection && this.voiceConnection.channel.id !== song.voiceChannel.id) {
             this.voiceConnection.disconnect();
+            this.voiceConnection = await song.voiceChannel.join();
+        } else if (!this.voiceConnection) {
             this.voiceConnection = await song.voiceChannel.join();
         }
 
