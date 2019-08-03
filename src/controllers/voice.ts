@@ -47,7 +47,7 @@ export default class VoiceController {
 
         if (this.queue.length === 0) {
             this.playing = false;
-            DiscordConnection.client.user.setPresence({});
+            DiscordConnection.client.user.setPresence({ activity: { name: '' } });
             return;
         }
 
