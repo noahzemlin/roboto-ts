@@ -7,6 +7,7 @@ import {
 } from 'discord.js';
 import * as ytdl from 'ytdl-core';
 import DiscordConnection from '../client/client';
+import logger from '../logger';
 
 interface QueueItem {
     voiceChannel: VoiceChannel;
@@ -24,7 +25,7 @@ export default class VoiceController {
     private queue: QueueItem[] = [];
 
     private volume: number = 0.1;
-    private lastRelativeLoudness: number = -1;
+    private lastRelativeLoudness: number = -1.0;
     private playing: boolean = false;
     private dispatcher: StreamDispatcher = null;
     private voiceConnection: VoiceConnection = null;
@@ -48,9 +49,7 @@ export default class VoiceController {
 
         if (this.queue.length === 0) {
             this.playing = false;
-            DiscordConnection.client.user.setPresence({
-                activity: {},
-            });
+            DiscordConnection.client.user.setActivity({});
             return;
         }
 
@@ -63,6 +62,12 @@ export default class VoiceController {
             this.voiceConnection = await song.voiceChannel.join();
         }
 
+        logger.info(
+            `Last ra ${this.lastRelativeLoudness}, new ra: ${
+                song.info.relative_loudness
+            }, float ra: ${parseFloat(song.info.relative_loudness)}`
+        );
+
         if (this.lastRelativeLoudness === -1) {
             this.lastRelativeLoudness = parseFloat(song.info.relative_loudness);
         } else {
@@ -74,12 +79,9 @@ export default class VoiceController {
         this.dispatcher = this.voiceConnection.play(ytdl(song.info.video_url));
         this.dispatcher.setVolume(this.volume);
 
-        DiscordConnection.client.user.setPresence({
-            activity: {
-                name: `Playing ${song.info.title}`,
-                type: 'LISTENING',
-                url: song.info.video_url,
-            },
+        DiscordConnection.client.user.setActivity({
+            name: `${song.info.title}`,
+            type: 'LISTENING',
         });
 
         this.dispatcher.on('finish', () => {
