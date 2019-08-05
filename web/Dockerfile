@@ -1,4 +1,4 @@
-FROM node:10-jessie
+FROM node:10-alpine
 
 WORKDIR /opt/roboto
 
@@ -8,8 +8,8 @@ RUN npm install --no-optional
 
 # Build
 COPY src src
+COPY public public
 COPY tsconfig.json .
-COPY tslint.json .
 RUN npm run build
 
 # Run

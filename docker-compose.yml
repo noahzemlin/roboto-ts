@@ -4,11 +4,13 @@ services:
     image: mongo:latest
     ports:
       - 27017:27017
+  web:
+    build: ./web
   roboto-text:
-    build: .
+    build: ./bot
     environment:
       - COMMANDLIST=text
   roboto-voice:
-    build: .
+    build: ./bot
     environment:
       - COMMANDLIST=voice

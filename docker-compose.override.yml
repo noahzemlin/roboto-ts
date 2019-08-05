@@ -3,11 +3,15 @@ services:
   mongodb:
     volumes:
       - './mongodb:/data/db:cached'
+  web:
+    command: npm run start
+    volumes:
+      - './web:/opt/roboto:cached'
   roboto-text:
     command: npm run start:dev
     volumes:
-      - '.:/opt/roboto:cached'
+      - './bot:/opt/roboto:cached'
   roboto-voice:
     command: npm run start:dev
     volumes:
-      - '.:/opt/roboto:cached'
+      - './bot:/opt/roboto:cached'

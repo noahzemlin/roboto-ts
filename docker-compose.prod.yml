@@ -3,6 +3,9 @@ services:
   mongodb:
     volumes:
       - 'dbdata:/data/db:cached'
+  web:
+    command: serve -s build -l 80
+    restart: always
   roboto-text:
     command: npm run start
     restart: always
