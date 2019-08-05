@@ -4,6 +4,8 @@
         "noImplicitAny": true,
         "removeComments": true,
         "preserveConstEnums": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true ,
         "sourceMap": true,
         "target": "ES6",
         "outDir": "bin",

@@ -13,8 +13,8 @@ const logger = bunyan.createLogger({
             level: 'info',
             type: 'rotating-file',
             path: './logs.txt',
-            period: '1h', // daily rotation
-            count: 24, // keep 3 back copies
+            period: '6h', // log files every 6 hours
+            count: 8, // keep 2 days worth
         },
     ],
 });
