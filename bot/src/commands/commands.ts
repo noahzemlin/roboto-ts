@@ -5,6 +5,7 @@ import BaseCommand from './base-command';
 import HealthyCommand from './healthy';
 import NextCommand from './next';
 import PlayCommand from './play';
+import TFWCommand from './tfw';
 import VolumeCommand from './volume';
 
 export default class Commands {
@@ -16,6 +17,7 @@ export default class Commands {
         switch (config.commandlist) {
             case 'text': {
                 this.pushCommand(new HealthyCommand());
+                this.pushCommand(new TFWCommand());
                 break;
             }
             case 'voice': {
@@ -48,7 +50,8 @@ export default class Commands {
             return;
         }
 
-        const args = message.content.toLocaleLowerCase().split(/ +/);
+        const msg = message.content.toLocaleLowerCase();
+        const args = msg.split(/ +/);
         const ref: string = args[0];
 
         for (const command of this.commands) {
@@ -62,7 +65,7 @@ export default class Commands {
         // TODO: Refactor this to not be slow af
         for (const command of this.commandsPrefixless) {
             for (const commandRef of command.refs) {
-                if (args.includes(commandRef)) {
+                if (msg.includes(commandRef)) {
                     logger.info(`CommandPrefixless call ${command.refs}`);
                     command.onMessage(message);
                     return;

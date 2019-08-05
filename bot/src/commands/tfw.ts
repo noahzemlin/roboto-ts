@@ -4,7 +4,7 @@ import BaseCommand from './base-command';
 
 export default class TFWCommand extends BaseCommand {
     constructor() {
-        super(['tfw']);
+        super(['tfw', 'that feel when'], false);
     }
 
     public async onMessage(message: Message) {
@@ -12,8 +12,6 @@ export default class TFWCommand extends BaseCommand {
     }
 
     private static getRandomPepe(): string {
-        return `[URL=http://i.imgur.com/${
-            pepes[Math.floor(Math.random() * pepes.length)]
-        }.png]pepe`;
+        return `http://i.imgur.com/${pepes[Math.floor(Math.random() * pepes.length)]}.png`;
     }
 }

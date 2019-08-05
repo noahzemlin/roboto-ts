@@ -6,9 +6,13 @@ export default abstract class BaseCommand {
     public requiresPrefix: boolean;
 
     constructor(refs: string[], requiresPrefix: boolean = true) {
-        this.refs = refs.map(ref => {
-            return `${config.prefix}${ref}`;
-        });
+        if (requiresPrefix === true) {
+            this.refs = refs.map(ref => {
+                return `${config.prefix}${ref}`;
+            });
+        } else {
+            this.refs = refs;
+        }
         this.requiresPrefix = requiresPrefix;
     }
 
