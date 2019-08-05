@@ -10,6 +10,7 @@ RUN npm install --no-optional
 COPY src src
 COPY public public
 COPY tsconfig.json .
+COPY tslint.json .
 RUN npm run build
 
 # Run

@@ -10,7 +10,11 @@ services:
     build: ./bot
     environment:
       - COMMANDLIST=text
+    env_file:
+      - .env
   roboto-voice:
     build: ./bot
     environment:
       - COMMANDLIST=voice
+    env_file:
+      - .env
