@@ -1,12 +1,16 @@
 import * as bunyan from 'bunyan';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 interface IMongo {
     url: string;
 }
 
 interface IConfig {
+    commandlist: string;
     prefix: string;
-    token: string;
+    discordtoken: string;
     mongo: IMongo;
     log_level: bunyan.LogLevelString;
     channel_filter?: 'whitelist' | 'blacklist';
@@ -15,8 +19,9 @@ interface IConfig {
 }
 
 const config: IConfig = {
+    commandlist: process.env.COMMANDLIST || '',
     prefix: process.env.PREFIX || '!',
-    token: process.env.TOKEN || '',
+    discordtoken: process.env.DISCORD_BOT_TOKEN || '',
     mongo: {
         url: process.env.MONGO_URL || '',
     },

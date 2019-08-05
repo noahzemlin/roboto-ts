@@ -7,8 +7,13 @@ export default class DiscordConnection {
     private static _client: Client;
 
     public static init() {
+        if (config.discordtoken === '') {
+            logger.error('DISCORD_BOT_TOKEN not set! Bot will not be started.');
+            return;
+        }
+
         this._client = new Client();
-        this._client.login(config.token);
+        this._client.login(config.discordtoken);
 
         this._client.on('ready', () => {
             logger.info(`Logged in as ${this._client.user.tag}!`);

@@ -6,8 +6,6 @@ bin/
 roboto/
 mongodb/
 
-# Prevent accidental changes to docker-compose.yml
-docker-compose.yml
-
-# Program specificc
+# Ignore logs and .env
 logs.txt*
+.env

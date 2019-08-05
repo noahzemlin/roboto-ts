@@ -2,7 +2,7 @@ import * as bunyan from 'bunyan';
 import config from './config';
 
 const logger = bunyan.createLogger({
-    name: 'roboto',
+    name: `roboto-${config.commandlist}`,
     level: config.log_level as bunyan.LogLevelString,
     streams: [
         {

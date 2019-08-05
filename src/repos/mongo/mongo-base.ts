@@ -96,6 +96,10 @@ export default abstract class Repo<T> {
     }
 
     async connect() {
+        if (config.mongo.url === '') {
+            logger.error('MONGO_URL not set! MongoDB will not be connected.');
+            return;
+        }
         if (this.connection === null) {
             logger.info(`Connecting to mongo url ${config.mongo.url}`);
             this.connection = mongoose.createConnection(config.mongo.url, {

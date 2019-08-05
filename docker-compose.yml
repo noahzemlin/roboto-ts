@@ -1,19 +1,14 @@
-version: '3'
+version: '3.7'
 services:
   mongodb:
     image: mongo:latest
     ports:
       - 27017:27017
-    volumes:
-      - './mongodb:/data/db:cached'
-  roboto:
+  roboto-text:
     build: .
     environment:
-      PREFIX: '!'
-      TOKEN: ''
-      MONGO_URL: 'mongodb://mongodb:27017/roboto'
-      LOG_LEVEL: 'debug'
-      CHANNEL_FILTER: 'blacklist'
-      WHITELIST_CHANNELS: ''
-      BLACKLIST_CHANNELS: ''
-    command: npm run start
+      - COMMANDLIST=text
+  roboto-voice:
+    build: .
+    environment:
+      - COMMANDLIST=voice

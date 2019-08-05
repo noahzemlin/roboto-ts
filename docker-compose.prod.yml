@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  mongodb:
+    volumes:
+      - 'dbdata:/data/db:cached'
+  roboto-text:
+    command: npm run start
+    restart: always
+  roboto-voice:
+    command: npm run start
+    restart: always
+volumes:
+  dbdata:

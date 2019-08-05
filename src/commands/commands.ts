@@ -1,8 +1,8 @@
 import { Message } from 'discord.js';
+import config from '../config';
 import logger from '../logger';
 import BaseCommand from './base-command';
 import HealthyCommand from './healthy';
-import HelpCommand from './help';
 import NextCommand from './next';
 import PlayCommand from './play';
 import VolumeCommand from './volume';
@@ -12,11 +12,21 @@ export default class Commands {
     private commands: BaseCommand[] = [];
 
     constructor() {
-        this.commands.push(new HelpCommand());
-        this.commands.push(new HealthyCommand());
-        this.commands.push(new PlayCommand());
-        this.commands.push(new NextCommand());
-        this.commands.push(new VolumeCommand());
+        switch (config.commandlist) {
+            case 'text': {
+                this.commands.push(new HealthyCommand());
+                break;
+            }
+            case 'voice': {
+                this.commands.push(new PlayCommand());
+                this.commands.push(new NextCommand());
+                this.commands.push(new VolumeCommand());
+                break;
+            }
+            default: {
+                logger.warn('COMMANDLIST not set! No commands loaded!');
+            }
+        }
     }
 
     public static get instance(): Commands {
