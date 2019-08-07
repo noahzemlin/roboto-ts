@@ -4,24 +4,10 @@ services:
     image: mongo:latest
     ports:
       - 27017:27017
-    deploy:
-      replicas: 1
-      update_config:
-        parallelism: 1
-        delay: 10s
-      restart_policy:
-        condition: on-failure
 
   web:
     build: ./web
     image: roboto-web
-    deploy:
-      replicas: 1
-      update_config:
-        parallelism: 1
-        delay: 10s
-      restart_policy:
-        condition: on-failure
 
   roboto-text:
     build: ./bot
@@ -30,13 +16,6 @@ services:
       - COMMANDLIST=text
     env_file:
       - .env
-    deploy:
-      replicas: 1
-      update_config:
-        parallelism: 1
-        delay: 10s
-      restart_policy:
-        condition: on-failure
 
   roboto-voice:
     build: ./bot
@@ -45,23 +24,9 @@ services:
       - COMMANDLIST=voice
     env_file:
       - .env
-    deploy:
-      replicas: 1
-      update_config:
-        parallelism: 1
-        delay: 10s
-      restart_policy:
-        condition: on-failure
 
   server:
     build: ./server
     image: roboto-server
     ports:
       - 8080:3000
-    deploy:
-      replicas: 1
-      update_config:
-        parallelism: 1
-        delay: 10s
-      restart_policy:
-        condition: on-failure

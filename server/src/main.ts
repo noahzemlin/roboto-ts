@@ -18,6 +18,7 @@ const errorResponse = `
     <p> <a href="https://gfycat.com/fluidsparklingindianrockpython">via Gfycat</a></p>
 </body>
 `;
+const PORT = 8080;
 
 const app = new Koa();
 
@@ -44,6 +45,6 @@ router.get('/*', async ctx => {
 
 app.use(router.routes());
 
-app.listen(3000);
+app.listen(PORT);
 
-console.log('Server running on port 3000');
+console.log(`Server running on port ${PORT}`);
