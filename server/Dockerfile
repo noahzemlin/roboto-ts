@@ -15,5 +15,7 @@ COPY tsconfig.json .
 COPY tslint.json .
 RUN npm run build
 
+EXPOSE 8080:8080
+
 # Run
 CMD npm run start
