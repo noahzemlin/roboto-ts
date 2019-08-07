@@ -12,5 +12,8 @@ services:
   roboto-voice:
     command: npm run start
     restart: always
+  server:
+    command: npm run start
+    restart: always
 volumes:
   dbdata:

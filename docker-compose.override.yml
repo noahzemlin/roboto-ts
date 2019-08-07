@@ -15,3 +15,5 @@ services:
     command: npm run start:dev
     volumes:
       - './bot:/opt/roboto:cached'
+  server:
+    command: npm run start:dev

@@ -18,3 +18,5 @@ services:
       - COMMANDLIST=voice
     env_file:
       - .env
+  server:
+    build: ./server
