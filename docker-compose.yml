@@ -4,6 +4,10 @@ services:
     image: mongo:latest
     ports:
       - 27017:27017
+  postgres:
+    image: postgres:latest
+    ports:
+        - 5432:5432
 
   web:
     build: ./web

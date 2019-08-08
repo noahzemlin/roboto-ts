@@ -10,6 +10,19 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
+
+  postgres:
+    volumes:
+      - 'postgres:/mnt/data:cached'
+    secrets:
+      - pgEnv
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
         
   web:
     command: serve -s build -l 80
@@ -54,5 +67,14 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
+
+secrets:
+  pgEnv:
+    external: true
+    name: roboto_PostgresConfig
+
 volumes:
   dbdata:
+    external: true              # Defines volume to be specified on the swarm. Needed for relocatable persistent storage.
+  pgdata:
+    external: true

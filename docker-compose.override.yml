@@ -3,6 +3,16 @@ services:
   mongodb:
     volumes:
       - './mongodb:/data/db:cached'
+      
+  postgres:
+    environment:
+      POSTGRES_USER: cheese             # The initial database username
+      POSTGRES_PASSWORD: balls          # The initial database password
+      POSTGRES_DB: db                   # The initial database name
+      PGDATA: /mnt/data                 # Specifies the directory to mount the database
+    volumes:
+      - './postgres:/mnt/data:cached'
+  
   web:
     command: npm run start
     volumes:
