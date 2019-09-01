@@ -5,7 +5,7 @@ WORKDIR /opt/roboto
 # Install deps
 COPY package.json .
 COPY package-lock.json .
-RUN apk add --no-cache bash git make gcc g++ python && \
+RUN apk add --no-cache bash git make gcc g++ python ffmpeg && \
   npm install --no-optional && \
   apk del bash git make gcc g++ python
 

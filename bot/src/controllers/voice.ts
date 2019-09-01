@@ -7,6 +7,7 @@ import {
 } from 'discord.js';
 import * as ytdl from 'ytdl-core';
 import DiscordConnection from '../client/client';
+import logger from '../logger';
 
 interface QueueItem {
     voiceChannel: VoiceChannel;
@@ -42,7 +43,7 @@ export default class VoiceController {
 
     public async next() {
         if (this.dispatcher) {
-            this.dispatcher.destroy();
+            this.dispatcher.end();
         }
 
         if (this.queue.length === 0) {
@@ -61,8 +62,10 @@ export default class VoiceController {
         }
 
         this.playing = true;
-        this.dispatcher = this.voiceConnection.play(ytdl(song.info.video_url));
-        this.dispatcher.setVolume(this.volume);
+        this.dispatcher = this.voiceConnection.play(
+            ytdl(song.info.video_url, { filter: 'audioonly' }),
+            { seek: 0, volume: this.volume }
+        );
 
         DiscordConnection.client.user.setPresence({
             activity: {
