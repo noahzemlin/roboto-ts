@@ -1,4 +1,4 @@
-import { Message } from 'discord.js';
+import { Message, PartialMessage } from 'discord.js';
 import config from '../config';
 
 export default abstract class BaseCommand {
@@ -16,5 +16,5 @@ export default abstract class BaseCommand {
         this.requiresPrefix = requiresPrefix;
     }
 
-    public abstract async onMessage(message: Message): Promise<void>;
+    public abstract async onMessage(message: Message | PartialMessage): Promise<void>;
 }

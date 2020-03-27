@@ -1,4 +1,4 @@
-import { Message } from 'discord.js';
+import { Message, PartialMessage } from 'discord.js';
 import config from '../config';
 import logger from '../logger';
 import BaseCommand from './base-command';
@@ -44,7 +44,7 @@ export default class Commands {
         return this._instance;
     }
 
-    public triggerCommand(message: Message) {
+    public triggerCommand(message: Message | PartialMessage) {
         // Don't read your own commands, dummy
         if (message.author.id === message.client.user.id) {
             return;

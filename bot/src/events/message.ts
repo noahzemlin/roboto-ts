@@ -1,4 +1,4 @@
-import { Message } from 'discord.js';
+import { Message, PartialMessage } from 'discord.js';
 import Commands from '../commands/commands';
 import config from '../config';
 
@@ -9,7 +9,7 @@ export default class MessageHandler {
         return this.instance;
     }
 
-    public parse(message: Message) {
+    public parse(message: Message | PartialMessage) {
         // Check if in whitelist and not in blacklist
         if (
             config.channel_filter === 'whitelist' &&
