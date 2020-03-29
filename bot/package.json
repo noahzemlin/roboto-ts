@@ -49,6 +49,6 @@
     "mv": "^2.1.1",
     "node-opus": "^0.3.2",
     "ws": "^7.1.1",
-    "ytdl-core-discord": "^1.0.3"
+    "ytdl-core-discord": "^1.1.0"
   }
 }
